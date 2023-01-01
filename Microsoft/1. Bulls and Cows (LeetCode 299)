@@ -1,0 +1,68 @@
+class Solution {
+public:
+    string getHint(string secret, string guess) {
+        
+        string ans="";
+        int bulls=0;
+        int cows=0;
+        int n=secret.size();
+        for(int i=0;i<n;i++)
+        {
+            if(secret[i]==guess[i])
+            {
+                bulls++;
+                secret[i]='d';
+                guess[i]='d';
+            }
+        }
+        string tempb="";
+        while(bulls!=0)
+        {
+            tempb=tempb+(char)((bulls%10)+'0');
+            bulls/=10;
+        }
+        reverse(tempb.begin(),tempb.end());
+        ans=ans+tempb;
+        if(tempb.empty())
+        {
+            ans+='0';
+        }
+        ans+='A';
+        for(int i=0;i<n;i++)
+        {
+            if(secret[i]=='d')
+            {
+                continue;
+            }
+            for(int j=0;j<n;j++)
+            {
+                if(guess[j]=='d')
+                {
+                    continue;
+                }
+                if(secret[i]==guess[j])
+                {
+                    secret[i]='d';
+                    guess[j]='d';
+                    cows++;
+                    break;
+                }
+            }
+        }
+        string tempc="";
+        while(cows!=0)
+        {
+            tempc+=(char)((cows%10)+'0');
+            cows/=10;
+        }
+        reverse(tempc.begin(),tempc.end());
+        ans+=tempc;
+        if(tempc.empty())
+        {
+            ans+='0';
+        }
+        ans+='B';
+        return ans;
+        
+    }
+};
