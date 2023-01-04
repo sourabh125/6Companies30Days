@@ -1,0 +1,69 @@
+
+class Solution {
+public:
+    int minOperations(vector<int>& nums, vector<int>& numsDivide) {
+        
+        sort(nums.begin(),nums.end());
+        map<int,int> mp1;
+        map<int,int> mp2;
+        for(int i=0;i<nums.size();i++)
+        {
+            mp1[nums[i]]++;
+        }
+        for(int i=0;i<numsDivide.size();i++)
+        {
+            mp2[numsDivide[i]]++;
+        }
+        int count=0;
+        for(auto i:mp1)
+        {
+            cout<<i.first<<" ";
+            bool flag=true;
+            for(auto j:mp2)
+            {
+                if(j.first%i.first!=0)
+                {
+                    flag=false;
+                    break;
+                }
+            }
+            if(flag==true)
+            {
+                for(int k=0;k<nums.size();k++)
+                {
+                    if(i.first==nums[k])
+                    {
+                        return k;
+                    }
+                }
+            }
+        }
+        return -1;
+
+//****************************************************************************
+
+ // O(N^2) Time complexity   (TLE)      
+        // sort(nums.begin(),nums.end());
+        // for(int i=0;i<nums.size();i++)
+        // {
+        //     bool flag=false;
+        //     for(int j=0;j<numsDivide.size();j++)
+        //     {
+        //         if(numsDivide[j]%nums[i]==0)
+        //         {
+        //             flag=true;
+        //         }
+        //         else
+        //         {
+        //             flag=false;
+        //             break;
+        //         }
+        //     }
+        //     if(flag==true)
+        //     {
+        //         return i;
+        //     }
+        // }
+        // return -1;
+    }
+};
